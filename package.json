@@ -2,7 +2,7 @@
     "name": "ignite",
     "private": true,
     "version": "0.0.0",
-    "homepage": "./",
+    "homepage": "Ignite/",
     "scripts": {
         "dev": "vite",
         "build": "tsc && vite build",
