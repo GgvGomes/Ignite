@@ -4,6 +4,7 @@ import { CaretRight, DiscordLogo, FileArrowDown, FileImage, Image, Lightning } f
 import '@vime/core/themes/default.css'
 import { gql, useQuery } from "@apollo/client";
 import { useGetLessonBySlugQuery } from "../graphql/generated";
+import { useState } from "react";
 
 // const GET_LESSON_BY_SLUG_QUERY = gql`
 //     query GetLessonBySlug ($slug: String) {
@@ -44,13 +45,15 @@ export function Video(props: VideoParams){
             slug: props.lessonSlug
         }
     })
+    const [video, setVideo] = useState('')
     // const { data } = useQuery<GetLessonBySlugResponse>(GET_LESSON_BY_SLUG_QUERY, {
     //     variables:{
     //         slug: props.lessonSlug
     //     }
     // })
 
-    if(!data || !data.lesson){
+    setTimeout(()=> setVideo(data && data?.lesson?.videoId ? data?.lesson?.videoId : ''), 2000)
+    if(!data || !data.lesson || !video){
         return(
             <div className="flex-1">
                 <p>Carregando...</p>
@@ -67,7 +70,7 @@ export function Video(props: VideoParams){
                 <div className="h-full w-full max-w-[1100px] max-h-[60vh] aspect-video">
 
                     <Player>
-                        <Youtube videoId={data.lesson.videoId} />
+                        <Youtube videoId={video} />
                         <DefaultUi />
                     </Player>
 
